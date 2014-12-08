@@ -1,4 +1,5 @@
 var XplRfxTrx = require("./lib/xpl-rfxtrx");
+var rfxcom = require('rfxcom');
 
 var wt = new XplRfxTrx("/dev/ttyUSB0", {
 	rfxtrxDebug: false
@@ -14,7 +15,7 @@ wt.init(function(error, rfxtrx, xpl) {
 		console.log("Receive message ", message);
                 var deviceId = message.body.address + '/' + message.body.unit;
 
-                var light=new wt.rfxcom.Lighting2(wt.rfxcom, wt.rfxcom.lighting2.HOMEEASY_EU);
+                var light=new rfxcom.Lighting2(rfxtrx, rfxcom.lighting2.HOMEEASY_EU);
 
                 if(message.body.command == 'on'){
                         light.switchOn(deviceId);
