@@ -11,13 +11,41 @@ wt.init(function(error, rfxtrx, xpl) {
 	}
 
         xpl.on("xpl:homeeasy.basic", function(message) {
-                console.log("Receive message ", message);
-                var device=getDeviceByAddress(message.address);
-                if (device) {
-                	device.processCommand(message);
+		console.log("Receive message ", message);
+                var deviceId = message.body.address + '/' + message.body.unit;
+
+                var light=new Lighting2(wt.rfxcom, wt.rfxcom.lighting2.HOMEEASY_EU);
+
+                if(message.body.command == 'on'){
+                        light.switchOn(deviceId);
+                }
+                else if(message.body.command == 'off'){
+                        light.switchOff(deviceId);
+
+                }
+                else if (message.body.command == 'preset'){
+                        light.setLevel(deviceId, parseInt(message.body.level, 10));
                 }
         });
 
+        xpl.on("xpl:ac.basic", function(message) {
+		console.log("Receive message ", message);
+                var deviceId = message.body.address + '/' + message.body.unit;
+
+                var light=new Lighting2(wt.rfxcom, wt.rfxcom.lighting2.AC);
+
+                if(message.body.command == 'on'){
+                        light.switchOn(deviceId);
+                }
+                else if(message.body.command == 'off'){
+                        light.switchOff(deviceId);
+
+                }
+                else if (message.body.command == 'preset'){
+                        light.setLevel(deviceId, parseInt(message.body.level, 10));
+                }
+        });
+        
 	rfxtrx.on("elec2", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
