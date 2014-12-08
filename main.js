@@ -10,12 +10,13 @@ wt.init(function(error, rfxtrx, xpl) {
 		return;
 	}
 
-        /*xpl.on("message", function(message) {
+        xpl.on("xpl:homeeasy.basic", function(message) {
                 console.log("Receive message ", message);
-                if (message.bodyName == "x10.basic") {
-                    
+                var device=getDeviceByAddress(message.address);
+                if (device) {
+                	device.processCommand(message);
                 }
-        });*/
+        });
 
 	rfxtrx.on("elec2", function(evt) {
 		if (!wt.hash[evt.id]) {
