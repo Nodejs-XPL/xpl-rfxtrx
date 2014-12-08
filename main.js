@@ -10,6 +10,13 @@ wt.init(function(error, rfxtrx, xpl) {
 		return;
 	}
 
+        /*xpl.on("message", function(message) {
+                console.log("Receive message ", message);
+                if (message.bodyName == "x10.basic") {
+                    
+                }
+        });*/
+
 	rfxtrx.on("elec2", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
