@@ -14,7 +14,7 @@ wt.init(function(error, rfxtrx, xpl) {
 		console.log("Receive message ", message);
                 var deviceId = message.body.address + '/' + message.body.unit;
 
-                var light=new Lighting2(wt.rfxcom, wt.rfxcom.lighting2.HOMEEASY_EU);
+                var light=new wt.rfxcom.Lighting2(wt.rfxcom, wt.rfxcom.lighting2.HOMEEASY_EU);
 
                 if(message.body.command == 'on'){
                         light.switchOn(deviceId);
@@ -32,7 +32,7 @@ wt.init(function(error, rfxtrx, xpl) {
 		console.log("Receive message ", message);
                 var deviceId = message.body.address + '/' + message.body.unit;
 
-                var light=new Lighting2(wt.rfxcom, wt.rfxcom.lighting2.AC);
+                var light=new wt.rfxcom.Lighting2(wt.rfxcom, wt.rfxcom.lighting2.AC);
 
                 if(message.body.command == 'on'){
                         light.switchOn(deviceId);
