@@ -33,7 +33,7 @@ wt.init(function(error, rfxtrx, xpl) {
 		console.log("Receive message ", message);
                 var deviceId = message.body.address + '/' + message.body.unit;
 
-                var light=new wt.rfxcom.Lighting2(wt.rfxcom, wt.rfxcom.lighting2.AC);
+                var light=new rfxcom.Lighting2(rfxtrx, rfxcom.lighting2.AC);
 
                 if(message.body.command == 'on'){
                         light.switchOn(deviceId);
