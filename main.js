@@ -47,18 +47,178 @@ wt.init(function(error, rfxtrx, xpl) {
                 }
         });
         
+        xpl.on("xpl:x10.basic", function(message) {
+		console.log("Receive message ", message);
+                var deviceId = message.body.device;
+
+                var light=new rfxcom.Lighting1(rfxtrx, rfxcom.lighting1.X10);
+
+                if(message.body.command == 'on'){
+                        light.chime(deviceId);
+                }
+                else if(message.body.command == 'off'){
+                        light.chime(deviceId);
+
+                }
+        });
+        
+        xpl.on("xpl:arc.basic", function(message) {
+		console.log("Receive message ", message);
+                var deviceId = message.body.device;
+
+                var light=new rfxcom.Lighting1(rfxtrx, rfxcom.lighting1.ARC);
+
+                if(message.body.command == 'on'){
+                        light.chime(deviceId);
+                }
+                else if(message.body.command == 'off'){
+                        light.chime(deviceId);
+
+                }
+        });
+        
+        xpl.on("xpl:elro.basic", function(message) {
+		console.log("Receive message ", message);
+                var deviceId = message.body.device;
+
+                var light=new rfxcom.Lighting1(rfxtrx, rfxcom.lighting1.ELRO);
+
+                if(message.body.command == 'on'){
+                        light.chime(deviceId);
+                }
+                else if(message.body.command == 'off'){
+                        light.chime(deviceId);
+
+                }
+        });
+        
+        xpl.on("xpl:waveman.basic", function(message) {
+		console.log("Receive message ", message);
+                var deviceId = message.body.device;
+
+                var light=new rfxcom.Lighting1(rfxtrx, rfxcom.lighting1.WAVEMAN);
+
+                if(message.body.command == 'on'){
+                        light.chime(deviceId);
+                }
+                else if(message.body.command == 'off'){
+                        light.chime(deviceId);
+
+                }
+        });
+        
+        xpl.on("xpl:chacon.basic", function(message) {
+		console.log("Receive message ", message);
+                var deviceId = message.body.device;
+
+                var light=new rfxcom.Lighting1(rfxtrx, rfxcom.lighting1.CHACON);
+
+                if(message.body.command == 'on'){
+                        light.chime(deviceId);
+                }
+                else if(message.body.command == 'off'){
+                        light.chime(deviceId);
+
+                }
+        });
+        
+        xpl.on("xpl:impuls.basic", function(message) {
+		console.log("Receive message ", message);
+                var deviceId = message.body.device;
+
+                var light=new rfxcom.Lighting1(rfxtrx, rfxcom.lighting1.IMULS);
+
+                if(message.body.command == 'on'){
+                        light.chime(deviceId);
+                }
+                else if(message.body.command == 'off'){
+                        light.chime(deviceId);
+
+                }
+        });
+        
+        xpl.on("xpl:risingsun.basic", function(message) {
+		console.log("Receive message ", message);
+                var deviceId = message.body.device;
+
+                var light=new rfxcom.Lighting1(rfxtrx, rfxcom.lighting1.RISING_SUN);
+
+                if(message.body.command == 'on'){
+                        light.chime(deviceId);
+                }
+                else if(message.body.command == 'off'){
+                        light.chime(deviceId);
+                }
+        });
+        
+        xpl.on("xpl:philipssbc.basic", function(message) {
+		console.log("Receive message ", message);
+                var deviceId = message.body.device;
+
+                var light=new rfxcom.Lighting1(rfxtrx, rfxcom.lighting1.PHILIPS_SBC);
+
+                if(message.body.command == 'on'){
+                        light.chime(deviceId);
+                }
+                else if(message.body.command == 'off'){
+                        light.chime(deviceId);
+                }
+        });
+        
+        xpl.on("xpl:lightwaverf.basic", function(message) {
+		console.log("Receive message ", message);
+                var deviceId = message.body.device + '/' + message.body.unitcode;
+
+                var light=new rfxcom.Lighting5(rfxtrx, rfxcom.lighting5.LIGHTWAVERF);
+
+                if(message.body.command == 'on'){
+                        light.switchOn(deviceId);
+                }
+                else if(message.body.command == 'off'){
+                        light.switchOff(deviceId);
+                }
+        });
+        
+        xpl.on("xpl:emw100.basic", function(message) {
+		console.log("Receive message ", message);
+                var deviceId = message.body.device + '/' + message.body.unitcode;
+
+                var light=new rfxcom.Lighting5(rfxtrx, rfxcom.lighting5.EMW100);
+
+                if(message.body.command == 'on'){
+                        light.switchOn(deviceId);
+                }
+                else if(message.body.command == 'off'){
+                        light.switchOff(deviceId);
+                }
+        });
+        
+        xpl.on("xpl:bbsb.basic", function(message) {
+		console.log("Receive message ", message);
+                var deviceId = message.body.device + '/' + message.body.unitcode;
+
+                var light=new rfxcom.Lighting5(rfxtrx, rfxcom.lighting5.BBSB);
+
+                if(message.body.command == 'on'){
+                        light.switchOn(deviceId);
+                }
+                else if(message.body.command == 'off'){
+                        light.switchOff(deviceId);
+                }
+        });
+        
 	rfxtrx.on("elec2", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
 		}
-		wt.trig_elec(evt);
+		wt.xplSend_elec(evt, 1);
 	});
 
 	rfxtrx.on("elec3", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
 		}
-		wt.trig_elec(evt);
+		wt.xplSend_elec(evt, 1);
 	});
 
 	/**
@@ -72,14 +232,14 @@ wt.init(function(error, rfxtrx, xpl) {
 	rfxtrx.on("lighting1", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
-			wt.trig_lighting1(evt);
+			wt.xplSend_lighting1(evt, 1);
 			return;
 		}
 		var lastevt = wt.hash[evt.id];
 		if (lastevt.command != evt.command) {
-			wt.trig_lighting1(evt);
+			wt.xplSend_lighting1(evt, 1);
 		} else {
-			wt.stat_lighting1(evt);
+			wt.xplSend_lighting1(evt, 0);
 		}
 	});
 
@@ -92,13 +252,13 @@ wt.init(function(error, rfxtrx, xpl) {
 	rfxtrx.on("lighting2", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
-			wt.trig_lighting2(evt);
+			wt.xplSend_lighting2(evt, 1);
 		} else {
 			var lastevt = wt.hash[evt.id];
 			if (lastevt.command != evt.command) {
-				wt.trig_lighting2(evt);
+				wt.xplSend_lighting2(evt, 1);
 			} else
-				wt.stat_lighting2(evt);
+				wt.xplSend_lighting2(evt, 0);
 		}
 	});
 
@@ -112,13 +272,13 @@ wt.init(function(error, rfxtrx, xpl) {
 	rfxtrx.on("lighting5", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
-			wt.trig_lighting5(evt);
+			wt.xplSend_lighting5(evt, 1);
 		} else {
 			var lastevt = wt.hash[evt.id];
 			if (lastevt.command != evt.command) {
-				wt.trig_lighting5(evt);
+				wt.xplSend_lighting5(evt, 1);
 			} else
-				wt.stat_lighting5(evt);
+				wt.xplSend_lighting5(evt, 0);
 		}
 	});
 
@@ -131,13 +291,13 @@ wt.init(function(error, rfxtrx, xpl) {
 	rfxtrx.on("security1", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
-			wt.trig_security1(evt);
+			wt.xplSend_security1(evt, 1);
 		} else {
 			var lastevt = wt.hash[evt.id];
 			if (lastevt.deviceStatus != evt.deviceStatus) {
-				wt.trig_security1(evt);
+				wt.xplSend_security1(evt, 1);
 			} else
-				wt.stat_security1(evt);
+				wt.xplSend_security1(evt, 0);
 		}
 	});
 
@@ -149,13 +309,13 @@ wt.init(function(error, rfxtrx, xpl) {
 	rfxtrx.on("rfxmeter", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
-			wt.trig_rfxmeter(evt);
+                        wt.xplSend_rfxmeter(evt, 1);
 		} else {
 			var lastevt = wt.hash[evt.id];
 			if (lastevt.counter != evt.counter) {
-				wt.trig_rfxmeter(evt);
+				wt.xplSend_rfxmeter(evt, 1);
 			} else
-				wt.stat_rfxmeter(evt);
+				wt.xplSend_rfxmeter(evt, 0);
 		}
 	});
 
@@ -167,13 +327,13 @@ wt.init(function(error, rfxtrx, xpl) {
 	rfxtrx.on("weight", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
-			wt.trig_weight(evt);
+                        wt.xplSend_weight(evt, 1);
 		} else {
 			var lastevt = wt.hash[evt.id];
 			if (lastevt.command != evt.command) {
-				wt.trig_weight(evt);
+				wt.xplSend_weight(evt, 1);
 			} else
-				wt.stat_weight(evt);
+				wt.xplSend_weight(evt, 0);
 		}
 	});
 
@@ -184,13 +344,13 @@ wt.init(function(error, rfxtrx, xpl) {
 	rfxtrx.on("rfxsensor", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
-			wt.trig_rfxsensor(evt);
+                        wt.xplSend_rfxsensor(evt, 1);
 		} else {
 			var lastevt = wt.hash[evt.id];
 			if (lastevt.command != evt.command) {
-				wt.trig_rfxsensor(evt);
+				wt.xplSend_rfxsensor(evt, 1);
 			} else
-				wt.stat_rfxsensor(evt);
+				wt.xplSend_rfxsensor(evt, 0);
 		}
 	});
 
@@ -202,98 +362,98 @@ wt.init(function(error, rfxtrx, xpl) {
 	rfxtrx.on("thb1", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
-			wt.trig_th_temperature(evt);
-                        wt.trig_th_humidity(evt);
-                        wt.trig_th_humidityStatus(evt);
-                        wt.trig_th_barometer(evt);
-                        wt.trig_th_forecast(evt);
-                        wt.trig_th_batteryLevel(evt);
-                        wt.trig_th_rssi(evt);
+			wt.xplSend_th_temp(evt, 1);
+                        wt.xplSend_th_humidity(evt, 1);
+                        wt.xplSend_th_humidityStatus(evt, 1);
+                        wt.xplSend_th_barometer(evt, 1);
+                        wt.xplSend_th_forecast(evt, 1);
+                        wt.xplSend_th_battery(evt, 1);
+                        wt.xplSend_th_rssi(evt, 1);
 		} else {
 			var lastevt = wt.hash[evt.id];
 			if (lastevt.temperature != evt.temperature) {
-				wt.trig_th_temperature(evt);
+				wt.xplSend_th_temp(evt, 1);
 			} else
-				wt.stat_th_temperature(evt);
+				wt.xplSend_th_temp(evt, 0);
 
 			if (lastevt.humidity != evt.humidity) {
-				wt.trig_th_humidity(evt);
+				wt.xplSend_th_humidity(evt, 1);
 			} else
-				wt.stat_th_humidity(evt);
+				wt.xplSend_th_humidity(evt, 0);
 
 			if (lastevt.humidityStatus != evt.humidityStatus) {
-				wt.trig_th_humidityStatus(evt);
+				wt.xplSend_th_humidityStatus(evt, 1);
 			} else
-				wt.stat_th_humidityStatus(evt);
+				wt.xplSend_th_humidityStatus(evt, 0);
 
 			if (lastevt.barometer != evt.barometer) {
-				wt.trig_th_barometer(evt);
+				wt.xplSend_th_barometer(evt, 1);
 			} else
-				wt.stat_th_barometer(evt);
+				wt.xplSend_th_barometer(evt, 0);
 
 			if (lastevt.forecast != evt.forecast) {
-				wt.trig_th_forecast(evt);
+				wt.xplSend_th_forecast(evt, 1);
 			} else
-				wt.stat_th_forecast(evt);
+				wt.xplSend_th_forecast(evt, 0);
 
 			if (lastevt.batteryLevel != evt.batteryLevel) {
-				wt.trig_th_batteryLevel(evt);
+				wt.xplSend_th_battery(evt, 1);
 			} else
-				wt.stat_th_batteryLevel(evt);
+				wt.xplSend_th_battery(evt, 0);
 
 			if (lastevt.rssi != evt.rssi) {
-				wt.trig_th_rssi(evt);
+				wt.xplSend_th_rssi(evt, 1);
 			} else
-				wt.stat_th_rssi(evt);
+				wt.xplSend_th_rssi(evt, 0);
 		}
 	});
 
 	rfxtrx.on("thb2", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
-			wt.trig_th_temperature(evt);
-                        wt.trig_th_humidity(evt);
-                        wt.trig_th_humidityStatus(evt);
-                        wt.trig_th_barometer(evt);
-                        wt.trig_th_forecast(evt);
-                        wt.trig_th_batteryLevel(evt);
-                        wt.trig_th_rssi(evt);
+			wt.xplSend_th_temp(evt, 1);
+                        wt.xplSend_th_humidity(evt, 1);
+                        wt.xplSend_th_humidityStatus(evt, 1);
+                        wt.xplSend_th_barometer(evt, 1);
+                        wt.xplSend_th_forecast(evt, 1);
+                        wt.xplSend_th_battery(evt, 1);
+                        wt.xplSend_th_rssi(evt, 1);
 		} else {
 			var lastevt = wt.hash[evt.id];
 			if (lastevt.temperature != evt.temperature) {
-				wt.trig_th_temperature(evt);
+				wt.xplSend_th_temp(evt, 1);
 			} else
-				wt.stat_th_temperature(evt);
+				wt.xplSend_th_temp(evt, 0);
 
 			if (lastevt.humidity != evt.humidity) {
-				wt.trig_th_humidity(evt);
+				wt.xplSend_th_humidity(evt, 1);
 			} else
-				wt.stat_th_humidity(evt);
+				wt.xplSend_th_humidity(evt, 0);
 
 			if (lastevt.humidityStatus != evt.humidityStatus) {
-				wt.trig_th_humidityStatus(evt);
+				wt.xplSend_th_humidityStatus(evt, 1);
 			} else
-				wt.stat_th_humidityStatus(evt);
+				wt.xplSend_th_humidityStatus(evt, 0);
 
 			if (lastevt.barometer != evt.barometer) {
-				wt.trig_th_barometer(evt);
+				wt.xplSend_th_barometer(evt, 1);
 			} else
-				wt.stat_th_barometer(evt);
+				wt.xplSend_th_barometer(evt, 0);
 
 			if (lastevt.forecast != evt.forecast) {
-				wt.trig_th_forecast(evt);
+				wt.xplSend_th_forecast(evt, 1);
 			} else
-				wt.stat_th_forecast(evt);
+				wt.xplSend_th_forecast(evt, 0);
 
 			if (lastevt.batteryLevel != evt.batteryLevel) {
-				wt.trig_th_batteryLevel(evt);
+				wt.xplSend_th_battery(evt, 1);
 			} else
-				wt.stat_th_batteryLevel(evt);
+				wt.xplSend_th_battery(evt, 0);
 
 			if (lastevt.rssi != evt.rssi) {
-				wt.trig_th_rssi(evt);
+				wt.xplSend_th_rssi(evt, 1);
 			} else
-				wt.stat_th_rssi(evt);
+				wt.xplSend_th_rssi(evt, 0);
 		}
 	});
 
@@ -305,333 +465,333 @@ wt.init(function(error, rfxtrx, xpl) {
 	rfxtrx.on("th1", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
-			wt.trig_th_temperature(evt);
-                        wt.trig_th_humidity(evt);
-                        wt.trig_th_humidityStatus(evt);
-                        wt.trig_th_batteryLevel(evt);
-                        wt.trig_th_rssi(evt);
+			wt.xplSend_th_temp(evt, 1);
+                        wt.xplSend_th_humidity(evt, 1);
+                        wt.xplSend_th_humidityStatus(evt, 1);
+                        wt.xplSend_th_battery(evt, 1);
+                        wt.xplSend_th_rssi(evt, 1);
 		} else {
 			var lastevt = wt.hash[evt.id];
 			if (lastevt.temperature != evt.temperature) {
-				wt.trig_th_temperature(evt);
+				wt.xplSend_th_temp(evt, 1);
 			} else
-				wt.stat_th_temperature(evt);
+				wt.xplSend_th_temp(evt, 0);
 
 			if (lastevt.humidity != evt.humidity) {
-				wt.trig_th_humidity(evt);
+				wt.xplSend_th_humidity(evt, 1);
 			} else
-				wt.stat_th_humidity(evt);
+				wt.xplSend_th_humidity(evt, 0);
 
 			if (lastevt.humidityStatus != evt.humidityStatus) {
-				wt.trig_th_humidityStatus(evt);
+				wt.xplSend_th_humidityStatus(evt, 1);
 			} else
-				wt.stat_th_humidityStatus(evt);
+				wt.xplSend_th_humidityStatus(evt, 0);
 
 			if (lastevt.batteryLevel != evt.batteryLevel) {
-				wt.trig_th_batteryLevel(evt);
+				wt.xplSend_th_battery(evt, 1);
 			} else
-				wt.stat_th_batteryLevel(evt);
+				wt.xplSend_th_battery(evt, 0);
 
 			if (lastevt.rssi != evt.rssi) {
-				wt.trig_th_rssi(evt);
+				wt.xplSend_th_rssi(evt, 1);
 			} else
-				wt.stat_th_rssi(evt);
+				wt.xplSend_th_rssi(evt, 0);
 		}
 	});
 
 	rfxtrx.on("th2", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
-			wt.trig_th_temperature(evt);
-                        wt.trig_th_humidity(evt);
-                        wt.trig_th_humidityStatus(evt);
-                        wt.trig_th_batteryLevel(evt);
-                        wt.trig_th_rssi(evt);
+			wt.xplSend_th_temp(evt, 1);
+                        wt.xplSend_th_humidity(evt, 1);
+                        wt.xplSend_th_humidityStatus(evt, 1);
+                        wt.xplSend_th_battery(evt, 1);
+                        wt.xplSend_th_rssi(evt, 1);
 		} else {
 			var lastevt = wt.hash[evt.id];
 			if (lastevt.temperature != evt.temperature) {
-				wt.trig_th_temperature(evt);
+				wt.xplSend_th_temp(evt, 1);
 			} else
-				wt.stat_th_temperature(evt);
+				wt.xplSend_th_temp(evt, 0);
 
 			if (lastevt.humidity != evt.humidity) {
-				wt.trig_th_humidity(evt);
+				wt.xplSend_th_humidity(evt, 1);
 			} else
-				wt.stat_th_humidity(evt);
+				wt.xplSend_th_humidity(evt, 0);
 
 			if (lastevt.humidityStatus != evt.humidityStatus) {
-				wt.trig_th_humidityStatus(evt);
+				wt.xplSend_th_humidityStatus(evt, 1);
 			} else
-				wt.stat_th_humidityStatus(evt);
+				wt.xplSend_th_humidityStatus(evt, 0);
 
 			if (lastevt.batteryLevel != evt.batteryLevel) {
-				wt.trig_th_batteryLevel(evt);
+				wt.xplSend_th_battery(evt, 1);
 			} else
-				wt.stat_th_batteryLevel(evt);
+				wt.xplSend_th_battery(evt, 0);
 
 			if (lastevt.rssi != evt.rssi) {
-				wt.trig_th_rssi(evt);
+				wt.xplSend_th_rssi(evt, 1);
 			} else
-				wt.stat_th_rssi(evt);
+				wt.xplSend_th_rssi(evt, 0);
 		}
 	});
 
 	rfxtrx.on("th3", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
-			wt.trig_th_temperature(evt);
-                        wt.trig_th_humidity(evt);
-                        wt.trig_th_humidityStatus(evt);
-                        wt.trig_th_batteryLevel(evt);
-                        wt.trig_th_rssi(evt);
+			wt.xplSend_th_temp(evt, 1);
+                        wt.xplSend_th_humidity(evt, 1);
+                        wt.xplSend_th_humidityStatus(evt, 1);
+                        wt.xplSend_th_battery(evt, 1);
+                        wt.xplSend_th_rssi(evt, 1);
 		} else {
 			var lastevt = wt.hash[evt.id];
 			if (lastevt.temperature != evt.temperature) {
-				wt.trig_th_temperature(evt);
+				wt.xplSend_th_temp(evt, 1);
 			} else
-				wt.stat_th_temperature(evt);
+				wt.xplSend_th_temp(evt, 0);
 
 			if (lastevt.humidity != evt.humidity) {
-				wt.trig_th_humidity(evt);
+				wt.xplSend_th_humidity(evt, 1);
 			} else
-				wt.stat_th_humidity(evt);
+				wt.xplSend_th_humidity(evt, 0);
 
 			if (lastevt.humidityStatus != evt.humidityStatus) {
-				wt.trig_th_humidityStatus(evt);
+				wt.xplSend_th_humidityStatus(evt, 1);
 			} else
-				wt.stat_th_humidityStatus(evt);
+				wt.xplSend_th_humidityStatus(evt, 0);
 
 			if (lastevt.batteryLevel != evt.batteryLevel) {
-				wt.trig_th_batteryLevel(evt);
+				wt.xplSend_th_battery(evt, 1);
 			} else
-				wt.stat_th_batteryLevel(evt);
+				wt.xplSend_th_battery(evt, 0);
 
 			if (lastevt.rssi != evt.rssi) {
-				wt.trig_th_rssi(evt);
+				wt.xplSend_th_rssi(evt, 1);
 			} else
-				wt.stat_th_rssi(evt);
+				wt.xplSend_th_rssi(evt, 0);
 		}
 	});
 
 	rfxtrx.on("th4", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
-			wt.trig_th_temperature(evt);
-                        wt.trig_th_humidity(evt);
-                        wt.trig_th_humidityStatus(evt);
-                        wt.trig_th_batteryLevel(evt);
-                        wt.trig_th_rssi(evt);
+			wt.xplSend_th_temp(evt, 1);
+                        wt.xplSend_th_humidity(evt, 1);
+                        wt.xplSend_th_humidityStatus(evt, 1);
+                        wt.xplSend_th_battery(evt, 1);
+                        wt.xplSend_th_rssi(evt, 1);
 		} else {
 			var lastevt = wt.hash[evt.id];
 			if (lastevt.temperature != evt.temperature) {
-				wt.trig_th_temperature(evt);
+				wt.xplSend_th_temp(evt, 1);
 			} else
-				wt.stat_th_temperature(evt);
+				wt.xplSend_th_temp(evt, 0);
 
 			if (lastevt.humidity != evt.humidity) {
-				wt.trig_th_humidity(evt);
+				wt.xplSend_th_humidity(evt, 1);
 			} else
-				wt.stat_th_humidity(evt);
+				wt.xplSend_th_humidity(evt, 0);
 
 			if (lastevt.humidityStatus != evt.humidityStatus) {
-				wt.trig_th_humidityStatus(evt);
+				wt.xplSend_th_humidityStatus(evt, 1);
 			} else
-				wt.stat_th_humidityStatus(evt);
+				wt.xplSend_th_humidityStatus(evt, 0);
 
 			if (lastevt.batteryLevel != evt.batteryLevel) {
-				wt.trig_th_batteryLevel(evt);
+				wt.xplSend_th_battery(evt, 1);
 			} else
-				wt.stat_th_batteryLevel(evt);
+				wt.xplSend_th_battery(evt, 0);
 
 			if (lastevt.rssi != evt.rssi) {
-				wt.trig_th_rssi(evt);
+				wt.xplSend_th_rssi(evt, 1);
 			} else
-				wt.stat_th_rssi(evt);
+				wt.xplSend_th_rssi(evt, 0);
 		}
 	});
 
 	rfxtrx.on("th5", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
-			wt.trig_th_temperature(evt);
-                        wt.trig_th_humidity(evt);
-                        wt.trig_th_humidityStatus(evt);
-                        wt.trig_th_batteryLevel(evt);
-                        wt.trig_th_rssi(evt);
+			wt.xplSend_th_temp(evt, 1);
+                        wt.xplSend_th_humidity(evt, 1);
+                        wt.xplSend_th_humidityStatus(evt, 1);
+                        wt.xplSend_th_battery(evt, 1);
+                        wt.xplSend_th_rssi(evt, 1);
 		} else {
 			var lastevt = wt.hash[evt.id];
 			if (lastevt.temperature != evt.temperature) {
-				wt.trig_th_temperature(evt);
+				wt.xplSend_th_temp(evt, 1);
 			} else
-				wt.stat_th_temperature(evt);
+				wt.xplSend_th_temp(evt, 0);
 
 			if (lastevt.humidity != evt.humidity) {
-				wt.trig_th_humidity(evt);
+				wt.xplSend_th_humidity(evt, 1);
 			} else
-				wt.stat_th_humidity(evt);
+				wt.xplSend_th_humidity(evt, 0);
 
 			if (lastevt.humidityStatus != evt.humidityStatus) {
-				wt.trig_th_humidityStatus(evt);
+				wt.xplSend_th_humidityStatus(evt, 1);
 			} else
-				wt.stat_th_humidityStatus(evt);
+				wt.xplSend_th_humidityStatus(evt, 0);
 
 			if (lastevt.batteryLevel != evt.batteryLevel) {
-				wt.trig_th_batteryLevel(evt);
+				wt.xplSend_th_battery(evt, 1);
 			} else
-				wt.stat_th_batteryLevel(evt);
+				wt.xplSend_th_battery(evt, 0);
 
 			if (lastevt.rssi != evt.rssi) {
-				wt.trig_th_rssi(evt);
+				wt.xplSend_th_rssi(evt, 1);
 			} else
-				wt.stat_th_rssi(evt);
+				wt.xplSend_th_rssi(evt, 0);
 		}
 	});
 
 	rfxtrx.on("th6", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
-			wt.trig_th_temperature(evt);
-                        wt.trig_th_humidity(evt);
-                        wt.trig_th_humidityStatus(evt);
-                        wt.trig_th_batteryLevel(evt);
-                        wt.trig_th_rssi(evt);
+			wt.xplSend_th_temp(evt, 1);
+                        wt.xplSend_th_humidity(evt, 1);
+                        wt.xplSend_th_humidityStatus(evt, 1);
+                        wt.xplSend_th_battery(evt, 1);
+                        wt.xplSend_th_rssi(evt, 1);
 		} else {
 			var lastevt = wt.hash[evt.id];
 			if (lastevt.temperature != evt.temperature) {
-				wt.trig_th_temperature(evt);
+				wt.xplSend_th_temp(evt, 1);
 			} else
-				wt.stat_th_temperature(evt);
+				wt.xplSend_th_temp(evt, 0);
 
 			if (lastevt.humidity != evt.humidity) {
-				wt.trig_th_humidity(evt);
+				wt.xplSend_th_humidity(evt, 1);
 			} else
-				wt.stat_th_humidity(evt);
+				wt.xplSend_th_humidity(evt, 0);
 
 			if (lastevt.humidityStatus != evt.humidityStatus) {
-				wt.trig_th_humidityStatus(evt);
+				wt.xplSend_th_humidityStatus(evt, 1);
 			} else
-				wt.stat_th_humidityStatus(evt);
+				wt.xplSend_th_humidityStatus(evt, 0);
 
 			if (lastevt.batteryLevel != evt.batteryLevel) {
-				wt.trig_th_batteryLevel(evt);
+				wt.xplSend_th_battery(evt, 1);
 			} else
-				wt.stat_th_batteryLevel(evt);
+				wt.xplSend_th_battery(evt, 0);
 
 			if (lastevt.rssi != evt.rssi) {
-				wt.trig_th_rssi(evt);
+				wt.xplSend_th_rssi(evt, 1);
 			} else
-				wt.stat_th_rssi(evt);
+				wt.xplSend_th_rssi(evt, 0);
 		}
 	});
 
 	rfxtrx.on("th7", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
-			wt.trig_th_temperature(evt);
-                        wt.trig_th_humidity(evt);
-                        wt.trig_th_humidityStatus(evt);
-                        wt.trig_th_batteryLevel(evt);
-                        wt.trig_th_rssi(evt);
+			wt.xplSend_th_temp(evt, 1);
+                        wt.xplSend_th_humidity(evt, 1);
+                        wt.xplSend_th_humidityStatus(evt, 1);
+                        wt.xplSend_th_battery(evt, 1);
+                        wt.xplSend_th_rssi(evt, 1);
 		} else {
 			var lastevt = wt.hash[evt.id];
 			if (lastevt.temperature != evt.temperature) {
-				wt.trig_th_temperature(evt);
+				wt.xplSend_th_temp(evt, 1);
 			} else
-				wt.stat_th_temperature(evt);
+				wt.xplSend_th_temp(evt, 0);
 
 			if (lastevt.humidity != evt.humidity) {
-				wt.trig_th_humidity(evt);
+				wt.xplSend_th_humidity(evt, 1);
 			} else
-				wt.stat_th_humidity(evt);
+				wt.xplSend_th_humidity(evt, 0);
 
 			if (lastevt.humidityStatus != evt.humidityStatus) {
-				wt.trig_th_humidityStatus(evt);
+				wt.xplSend_th_humidityStatus(evt, 1);
 			} else
-				wt.stat_th_humidityStatus(evt);
+				wt.xplSend_th_humidityStatus(evt, 0);
 
 			if (lastevt.batteryLevel != evt.batteryLevel) {
-				wt.trig_th_batteryLevel(evt);
+				wt.xplSend_th_battery(evt, 1);
 			} else
-				wt.stat_th_batteryLevel(evt);
+				wt.xplSend_th_battery(evt, 0);
 
 			if (lastevt.rssi != evt.rssi) {
-				wt.trig_th_rssi(evt);
+				wt.xplSend_th_rssi(evt, 1);
 			} else
-				wt.stat_th_rssi(evt);
+				wt.xplSend_th_rssi(evt, 0);
 		}
 	});
 
 	rfxtrx.on("th8", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
-			wt.trig_th_temperature(evt);
-                        wt.trig_th_humidity(evt);
-                        wt.trig_th_humidityStatus(evt);
-                        wt.trig_th_batteryLevel(evt);
-                        wt.trig_th_rssi(evt);
+			wt.xplSend_th_temp(evt, 1);
+                        wt.xplSend_th_humidity(evt, 1);
+                        wt.xplSend_th_humidityStatus(evt, 1);
+                        wt.xplSend_th_battery(evt, 1);
+                        wt.xplSend_th_rssi(evt, 1);
 		} else {
 			var lastevt = wt.hash[evt.id];
 			if (lastevt.temperature != evt.temperature) {
-				wt.trig_th_temperature(evt);
+				wt.xplSend_th_temp(evt, 1);
 			} else
-				wt.stat_th_temperature(evt);
+				wt.xplSend_th_temp(evt, 0);
 
 			if (lastevt.humidity != evt.humidity) {
-				wt.trig_th_humidity(evt);
+				wt.xplSend_th_humidity(evt, 1);
 			} else
-				wt.stat_th_humidity(evt);
+				wt.xplSend_th_humidity(evt, 0);
 
 			if (lastevt.humidityStatus != evt.humidityStatus) {
-				wt.trig_th_humidityStatus(evt);
+				wt.xplSend_th_humidityStatus(evt, 1);
 			} else
-				wt.stat_th_humidityStatus(evt);
+				wt.xplSend_th_humidityStatus(evt, 0);
 
 			if (lastevt.batteryLevel != evt.batteryLevel) {
-				wt.trig_th_batteryLevel(evt);
+				wt.xplSend_th_battery(evt, 1);
 			} else
-				wt.stat_th_batteryLevel(evt);
+				wt.xplSend_th_battery(evt, 0);
 
 			if (lastevt.rssi != evt.rssi) {
-				wt.trig_th_rssi(evt);
+				wt.xplSend_th_rssi(evt, 1);
 			} else
-				wt.stat_th_rssi(evt);
+				wt.xplSend_th_rssi(evt, 0);
 		}
 	});
 
 	rfxtrx.on("th9", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
-			wt.trig_th_temperature(evt);
-                        wt.trig_th_humidity(evt);
-                        wt.trig_th_humidityStatus(evt);
-                        wt.trig_th_batteryLevel(evt);
-                        wt.trig_th_rssi(evt);
+			wt.xplSend_th_temp(evt, 1);
+                        wt.xplSend_th_humidity(evt, 1);
+                        wt.xplSend_th_humidityStatus(evt, 1);
+                        wt.xplSend_th_battery(evt, 1);
+                        wt.xplSend_th_rssi(evt, 1);
 		} else {
 			var lastevt = wt.hash[evt.id];
 			if (lastevt.temperature != evt.temperature) {
-				wt.trig_th_temperature(evt);
+				wt.xplSend_th_temp(evt, 1);
 			} else
-				wt.stat_th_temperature(evt);
+				wt.xplSend_th_temp(evt, 0);
 
 			if (lastevt.humidity != evt.humidity) {
-				wt.trig_th_humidity(evt);
+				wt.xplSend_th_humidity(evt, 1);
 			} else
-				wt.stat_th_humidity(evt);
+				wt.xplSend_th_humidity(evt, 0);
 
 			if (lastevt.humidityStatus != evt.humidityStatus) {
-				wt.trig_th_humidityStatus(evt);
+				wt.xplSend_th_humidityStatus(evt, 1);
 			} else
-				wt.stat_th_humidityStatus(evt);
+				wt.xplSend_th_humidityStatus(evt, 0);
 
 			if (lastevt.batteryLevel != evt.batteryLevel) {
-				wt.trig_th_batteryLevel(evt);
+				wt.xplSend_th_battery(evt, 1);
 			} else
-				wt.stat_th_batteryLevel(evt);
+				wt.xplSend_th_battery(evt, 0);
 
 			if (lastevt.rssi != evt.rssi) {
-				wt.trig_th_rssi(evt);
+				wt.xplSend_th_rssi(evt, 1);
 			} else
-				wt.stat_th_rssi(evt);
+				wt.xplSend_th_rssi(evt, 0);
 		}
 	});
 
@@ -643,229 +803,229 @@ wt.init(function(error, rfxtrx, xpl) {
 	rfxtrx.on("temp1", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
-			wt.trig_th_temperature(evt);
-                        wt.trig_th_batteryLevel(evt);
-                        wt.trig_th_rssi(evt);
+			wt.xplSend_th_temp(evt, 1);
+                        wt.xplSend_th_battery(evt, 1);
+                        wt.xplSend_th_rssi(evt, 1);
 		} else {
 			var lastevt = wt.hash[evt.id];
 			if (lastevt.temperature != evt.temperature) {
-				wt.trig_th_temperature(evt);
+				wt.xplSend_th_temp(evt, 1);
 			} else
-				wt.stat_th_temperature(evt);
+				wt.xplSend_th_temp(evt, 0);
 
 			if (lastevt.batteryLevel != evt.batteryLevel) {
-				wt.trig_th_batteryLevel(evt);
+				wt.xplSend_th_battery(evt, 1);
 			} else
-				wt.stat_th_batteryLevel(evt);
+				wt.xplSend_th_battery(evt, 0);
 
 			if (lastevt.rssi != evt.rssi) {
-				wt.trig_th_rssi(evt);
+				wt.xplSend_th_rssi(evt, 1);
 			} else
-				wt.stat_th_rssi(evt);
+				wt.xplSend_th_rssi(evt, 0);
 		}
 	});
 
 	rfxtrx.on("temp2", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
-			wt.trig_th_temperature(evt);
-                        wt.trig_th_batteryLevel(evt);
-                        wt.trig_th_rssi(evt);
+			wt.xplSend_th_temp(evt, 1);
+                        wt.xplSend_th_battery(evt, 1);
+                        wt.xplSend_th_rssi(evt, 1);
 		} else {
 			var lastevt = wt.hash[evt.id];
 			if (lastevt.temperature != evt.temperature) {
-				wt.trig_th_temperature(evt);
+				wt.xplSend_th_temp(evt, 1);
 			} else
-				wt.stat_th_temperature(evt);
+				wt.xplSend_th_temp(evt, 0);
 
 			if (lastevt.batteryLevel != evt.batteryLevel) {
-				wt.trig_th_batteryLevel(evt);
+				wt.xplSend_th_battery(evt, 1);
 			} else
-				wt.stat_th_batteryLevel(evt);
+				wt.xplSend_th_battery(evt, 0);
 
 			if (lastevt.rssi != evt.rssi) {
-				wt.trig_th_rssi(evt);
+				wt.xplSend_th_rssi(evt, 1);
 			} else
-				wt.stat_th_rssi(evt);
+				wt.xplSend_th_rssi(evt, 0);
 		}
 	});
 
 	rfxtrx.on("temp3", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
-			wt.trig_th_temperature(evt);
-                        wt.trig_th_batteryLevel(evt);
-                        wt.trig_th_rssi(evt);
+			wt.xplSend_th_temp(evt, 1);
+                        wt.xplSend_th_battery(evt, 1);
+                        wt.xplSend_th_rssi(evt, 1);
 		} else {
 			var lastevt = wt.hash[evt.id];
 			if (lastevt.temperature != evt.temperature) {
-				wt.trig_th_temperature(evt);
+				wt.xplSend_th_temp(evt, 1);
 			} else
-				wt.stat_th_temperature(evt);
+				wt.xplSend_th_temp(evt, 0);
 
 			if (lastevt.batteryLevel != evt.batteryLevel) {
-				wt.trig_th_batteryLevel(evt);
+				wt.xplSend_th_battery(evt, 1);
 			} else
-				wt.stat_th_batteryLevel(evt);
+				wt.xplSend_th_battery(evt, 0);
 
 			if (lastevt.rssi != evt.rssi) {
-				wt.trig_th_rssi(evt);
+				wt.xplSend_th_rssi(evt, 1);
 			} else
-				wt.stat_th_rssi(evt);
+				wt.xplSend_th_rssi(evt, 0);
 		}
 	});
 
 	rfxtrx.on("temp4", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
-			wt.trig_th_temperature(evt);
-                        wt.trig_th_batteryLevel(evt);
-                        wt.trig_th_rssi(evt);
+			wt.xplSend_th_temp(evt, 1);
+                        wt.xplSend_th_battery(evt, 1);
+                        wt.xplSend_th_rssi(evt, 1);
 		} else {
 			var lastevt = wt.hash[evt.id];
 			if (lastevt.temperature != evt.temperature) {
-				wt.trig_th_temperature(evt);
+				wt.xplSend_th_temp(evt, 1);
 			} else
-				wt.stat_th_temperature(evt);
+				wt.xplSend_th_temp(evt, 0);
 
 			if (lastevt.batteryLevel != evt.batteryLevel) {
-				wt.trig_th_batteryLevel(evt);
+				wt.xplSend_th_battery(evt, 1);
 			} else
-				wt.stat_th_batteryLevel(evt);
+				wt.xplSend_th_battery(evt, 0);
 
 			if (lastevt.rssi != evt.rssi) {
-				wt.trig_th_rssi(evt);
+				wt.xplSend_th_rssi(evt, 1);
 			} else
-				wt.stat_th_rssi(evt);
+				wt.xplSend_th_rssi(evt, 0);
 		}
 	});
 
 	rfxtrx.on("temp5", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
-			wt.trig_th_temperature(evt);
-                        wt.trig_th_batteryLevel(evt);
-                        wt.trig_th_rssi(evt);
+			wt.xplSend_th_temp(evt, 1);
+                        wt.xplSend_th_battery(evt, 1);
+                        wt.xplSend_th_rssi(evt, 1);
 		} else {
 			var lastevt = wt.hash[evt.id];
 			if (lastevt.temperature != evt.temperature) {
-				wt.trig_th_temperature(evt);
+				wt.xplSend_th_temp(evt, 1);
 			} else
-				wt.stat_th_temperature(evt);
+				wt.xplSend_th_temp(evt, 0);
 
 			if (lastevt.batteryLevel != evt.batteryLevel) {
-				wt.trig_th_batteryLevel(evt);
+				wt.xplSend_th_battery(evt, 1);
 			} else
-				wt.stat_th_batteryLevel(evt);
+				wt.xplSend_th_battery(evt, 0);
 
 			if (lastevt.rssi != evt.rssi) {
-				wt.trig_th_rssi(evt);
+				wt.xplSend_th_rssi(evt, 1);
 			} else
-				wt.stat_th_rssi(evt);
+				wt.xplSend_th_rssi(evt, 0);
 		}
 	});
 
 	rfxtrx.on("temp6", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
-			wt.trig_th_temperature(evt);
-                        wt.trig_th_batteryLevel(evt);
-                        wt.trig_th_rssi(evt);
+			wt.xplSend_th_temp(evt, 1);
+                        wt.xplSend_th_battery(evt, 1);
+                        wt.xplSend_th_rssi(evt, 1);
 		} else {
 			var lastevt = wt.hash[evt.id];
 			if (lastevt.temperature != evt.temperature) {
-				wt.trig_th_temperature(evt);
+				wt.xplSend_th_temp(evt, 1);
 			} else
-				wt.stat_th_temperature(evt);
+				wt.xplSend_th_temp(evt, 0);
 
 			if (lastevt.batteryLevel != evt.batteryLevel) {
-				wt.trig_th_batteryLevel(evt);
+				wt.xplSend_th_battery(evt, 1);
 			} else
-				wt.stat_th_batteryLevel(evt);
+				wt.xplSend_th_battery(evt, 0);
 
 			if (lastevt.rssi != evt.rssi) {
-				wt.trig_th_rssi(evt);
+				wt.xplSend_th_rssi(evt, 1);
 			} else
-				wt.stat_th_rssi(evt);
+				wt.xplSend_th_rssi(evt, 0);
 		}
 	});
 
 	rfxtrx.on("temp7", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
-			wt.trig_th_temperature(evt);
-                        wt.trig_th_batteryLevel(evt);
-                        wt.trig_th_rssi(evt);
+			wt.xplSend_th_temp(evt, 1);
+                        wt.xplSend_th_battery(evt, 1);
+                        wt.xplSend_th_rssi(evt, 1);
 		} else {
 			var lastevt = wt.hash[evt.id];
 			if (lastevt.temperature != evt.temperature) {
-				wt.trig_th_temperature(evt);
+				wt.xplSend_th_temp(evt, 1);
 			} else
-				wt.stat_th_temperature(evt);
+				wt.xplSend_th_temp(evt, 0);
 
 			if (lastevt.batteryLevel != evt.batteryLevel) {
-				wt.trig_th_batteryLevel(evt);
+				wt.xplSend_th_battery(evt, 1);
 			} else
-				wt.stat_th_batteryLevel(evt);
+				wt.xplSend_th_battery(evt, 0);
 
 			if (lastevt.rssi != evt.rssi) {
-				wt.trig_th_rssi(evt);
+				wt.xplSend_th_rssi(evt, 1);
 			} else
-				wt.stat_th_rssi(evt);
+				wt.xplSend_th_rssi(evt, 0);
 		}
 	});
 
 	rfxtrx.on("temp8", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
-			wt.trig_th_temperature(evt);
-                        wt.trig_th_batteryLevel(evt);
-                        wt.trig_th_rssi(evt);
+			wt.xplSend_th_temp(evt, 1);
+                        wt.xplSend_th_battery(evt, 1);
+                        wt.xplSend_th_rssi(evt, 1);
 		} else {
 			var lastevt = wt.hash[evt.id];
 			if (lastevt.temperature != evt.temperature) {
-				wt.trig_th_temperature(evt);
+				wt.xplSend_th_temp(evt, 1);
 			} else
-				wt.stat_th_temperature(evt);
+				wt.xplSend_th_temp(evt, 0);
 
 			if (lastevt.batteryLevel != evt.batteryLevel) {
-				wt.trig_th_batteryLevel(evt);
+				wt.xplSend_th_battery(evt, 1);
 			} else
-				wt.stat_th_batteryLevel(evt);
+				wt.xplSend_th_battery(evt, 0);
 
 			if (lastevt.rssi != evt.rssi) {
-				wt.trig_th_rssi(evt);
+				wt.xplSend_th_rssi(evt, 1);
 			} else
-				wt.stat_th_rssi(evt);
+				wt.xplSend_th_rssi(evt, 0);
 		}
 	});
 
 	rfxtrx.on("temp9", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
-			wt.trig_th_temperature(evt);
-                        wt.trig_th_batteryLevel(evt);
-                        wt.trig_th_rssi(evt);
+			wt.xplSend_th_temp(evt, 1);
+                        wt.xplSend_th_battery(evt, 1);
+                        wt.xplSend_th_rssi(evt, 1);
 			return;
 		}
 
 		var lastevt = wt.hash[evt.id];
 		if (lastevt.temperature != evt.temperature) {
-			wt.trig_th_temperature(evt);
+			wt.xplSend_th_temp(evt, 1);
 		} else {
-			wt.stat_th_temperature(evt);
+			wt.xplSend_th_temp(evt, 0);
 		}
 
 		if (lastevt.batteryLevel != evt.batteryLevel) {
-			wt.trig_th_batteryLevel(evt);
+			wt.xplSend_th_battery(evt, 1);
 		} else {
-			wt.stat_th_batteryLevel(evt);
+			wt.xplSend_th_battery(evt, 0);
 		}
 
 		if (lastevt.rssi != evt.rssi) {
-			wt.trig_th_rssi(evt);
+			wt.xplSend_th_rssi(evt, 1);
 		} else {
-			wt.stat_th_rssi(evt);
+			wt.xplSend_th_rssi(evt, 0);
 		}
 	});
 
