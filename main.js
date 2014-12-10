@@ -207,19 +207,19 @@ wt.init(function(error, rfxtrx, xpl) {
                 }
         });
         
-	rfxtrx.on("elec2", function(evt) {
+	rfxtrx.on("elec2" || "elec3", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
 		}
 		wt.xplSend_elec(evt, 1);
 	});
 
-	rfxtrx.on("elec3", function(evt) {
+	/*rfxtrx.on("elec3", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
 		}
 		wt.xplSend_elec(evt, 1);
-	});
+	});*/
 
 	/**
 	 * 
@@ -229,7 +229,7 @@ wt.init(function(error, rfxtrx, xpl) {
 	 * "Impuls", 6: "RisingSun", 7: "Philips SBC"
 	 * 
 	 */
-	rfxtrx.on("lighting1", function(evt) {
+	/*rfxtrx.on("lighting1", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
 			wt.xplSend_lighting1(evt, 1);
@@ -238,18 +238,23 @@ wt.init(function(error, rfxtrx, xpl) {
 		var lastevt = wt.hash[evt.id];
 		if (lastevt.command != evt.command) {
 			wt.xplSend_lighting1(evt, 1);
-		} else {
+		} else
 			wt.xplSend_lighting1(evt, 0);
-		}
-	});
+	});*/
 
+        rfxtrx.on("lighting1", function(evt) {
+                var lastEvt = wt.hash[evt.id];
+                wt.hash[evt.id]=evt;
+                wt.xplSend_lighting1(evt, !lastEvt || lastEvt.command != evt.command);
+        });
+        
 	/**
 	 * 
 	 * light control device.
 	 * 
 	 * LightwaveRF/Siemens
 	 */
-	rfxtrx.on("lighting2", function(evt) {
+	/*rfxtrx.on("lighting2", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
 			wt.xplSend_lighting2(evt, 1);
@@ -260,8 +265,14 @@ wt.init(function(error, rfxtrx, xpl) {
 			} else
 				wt.xplSend_lighting2(evt, 0);
 		}
-	});
+	});*/
 
+        rfxtrx.on("lighting2", function(evt) {
+                var lastEvt = wt.hash[evt.id];
+                wt.hash[evt.id]=evt;
+                wt.xplSend_lighting2(evt, !lastEvt || lastEvt.command != evt.command);
+        });
+        
 	/**
 	 * 
 	 * light control device.
@@ -269,7 +280,7 @@ wt.init(function(error, rfxtrx, xpl) {
 	 * 0: "LightwaveRF, Siemens", 1: "EMW100 GAO/Everflourish"
 	 * 
 	 */
-	rfxtrx.on("lighting5", function(evt) {
+	/*rfxtrx.on("lighting5", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
 			wt.xplSend_lighting5(evt, 1);
@@ -280,15 +291,21 @@ wt.init(function(error, rfxtrx, xpl) {
 			} else
 				wt.xplSend_lighting5(evt, 0);
 		}
-	});
+	});*/
 
+        rfxtrx.on("lighting5", function(evt) {
+                var lastEvt = wt.hash[evt.id];
+                wt.hash[evt.id]=evt;
+                wt.xplSend_lighting5(evt, !lastEvt || lastEvt.command != evt.command);
+        });
+        
 	/**
 	 * 
 	 * Called by the data event handler when data arrives from various security
 	 * devices.
 	 * 
 	 */
-	rfxtrx.on("security1", function(evt) {
+	/*rfxtrx.on("security1", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
 			wt.xplSend_security1(evt, 1);
@@ -299,14 +316,20 @@ wt.init(function(error, rfxtrx, xpl) {
 			} else
 				wt.xplSend_security1(evt, 0);
 		}
-	});
+	});*/
 
+        rfxtrx.on("security1", function(evt) {
+                var lastEvt = wt.hash[evt.id];
+                wt.hash[evt.id]=evt;
+                wt.xplSend_lsecurity1(evt, !lastEvt || lastEvt.command != evt.command);
+        });
+        
 	/**
 	 * 
 	 * Called by the data event handler when data arrives from rfxmeter devices.
 	 * 
 	 */
-	rfxtrx.on("rfxmeter", function(evt) {
+	/*rfxtrx.on("rfxmeter", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
                         wt.xplSend_rfxmeter(evt, 1);
@@ -317,14 +340,20 @@ wt.init(function(error, rfxtrx, xpl) {
 			} else
 				wt.xplSend_rfxmeter(evt, 0);
 		}
-	});
+	});*/
 
+        rfxtrx.on("rfxmeter", function(evt) {
+                var lastEvt = wt.hash[evt.id];
+                wt.hash[evt.id]=evt;
+                wt.xplSend_rfxmeter(evt, !lastEvt || lastEvt.command != evt.command);
+        });
+        
 	/**
 	 * 
 	 * Called by the data event handler when data arrives from digital scales.
 	 * 
 	 */
-	rfxtrx.on("weight", function(evt) {
+	/*rfxtrx.on("weight", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
                         wt.xplSend_weight(evt, 1);
@@ -335,13 +364,19 @@ wt.init(function(error, rfxtrx, xpl) {
 			} else
 				wt.xplSend_weight(evt, 0);
 		}
-	});
+	});*/
 
+        rfxtrx.on("weight", function(evt) {
+                var lastEvt = wt.hash[evt.id];
+                wt.hash[evt.id]=evt;
+                wt.xplSend_weight(evt, !lastEvt || lastEvt.command != evt.command);
+        });
+        
 	/**
 	 * Called by the data event handler when data arrives from rfxmeter devices.
 	 * 
 	 */
-	rfxtrx.on("rfxsensor", function(evt) {
+	/*rfxtrx.on("rfxsensor", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
                         wt.xplSend_rfxsensor(evt, 1);
@@ -352,14 +387,45 @@ wt.init(function(error, rfxtrx, xpl) {
 			} else
 				wt.xplSend_rfxsensor(evt, 0);
 		}
-	});
+	});*/
 
+        rfxtrx.on("rfxsensor", function(evt) {
+                var lastEvt = wt.hash[evt.id];
+                wt.hash[evt.id]=evt;
+                wt.xplSend_rfxsensor(evt, !lastEvt || lastEvt.command != evt.command);
+        });
+        
 	/**
 	 * 
 	 * Called by the data event handler when data arrives from thb1-thb2 devices.
 	 * 
 	 */
-	rfxtrx.on("thb1", function(evt) {
+        
+        rfxtrx.on("thb1" || "thb2", function(evt) {
+                var lastEvt = wt.hash[evt.id];
+                wt.hash[evt.id]=evt;
+                wt.xplSend_th_temp(evt, !lastEvt || lastEvt.temperature != evt.temperature);
+                wt.xplSend_th_humidity(evt, !lastEvt || lastEvt.humidity != evt.humidity);
+                wt.xplSend_th_humidityStatus(evt, !lastEvt || lastEvt.humidityStatus != evt.humidityStatus);
+                wt.xplSend_th_barometer(evt, !lastEvt || lastEvt.barometer != evt.barometer);
+                wt.xplSend_th_forecast(evt, !lastEvt || lastEvt.forecast != evt.forecast);
+                wt.xplSend_th_battery(evt, !lastEvt || lastEvt.batteryLevel != evt.batteryLevel);
+                wt.xplSend_th_rssi(evt, !lastEvt || lastEvt.rssi != evt.rssi);
+        });
+        
+        /*rfxtrx.on("thb2", function(evt) {
+                var lastEvt = wt.hash[evt.id];
+                wt.hash[evt.id]=evt;
+                wt.xplSend_th_temp(evt, !lastEvt || lastEvt.temperature != evt.temperature);
+                wt.xplSend_th_humidity(evt, !lastEvt || lastEvt.humidity != evt.humidity);
+                wt.xplSend_th_humidityStatus(evt, !lastEvt || lastEvt.humidityStatus != evt.humidityStatus);
+                wt.xplSend_th_barometer(evt, !lastEvt || lastEvt.barometer != evt.barometer);
+                wt.xplSend_th_forecast(evt, !lastEvt || lastEvt.forecast != evt.forecast);
+                wt.xplSend_th_battery(evt, !lastEvt || lastEvt.batteryLevel != evt.batteryLevel);
+                wt.xplSend_th_rssi(evt, !lastEvt || lastEvt.rssi != evt.rssi);
+        });*/
+        
+	/*rfxtrx.on("thb1", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
 			wt.xplSend_th_temp(evt, 1);
@@ -455,14 +521,25 @@ wt.init(function(error, rfxtrx, xpl) {
 			} else
 				wt.xplSend_th_rssi(evt, 0);
 		}
-	});
+	});*/
 
 	/**
 	 * 
 	 * Called by the data event handler when data arrives from th1-9 devices.
 	 * 
 	 */
-	rfxtrx.on("th1", function(evt) {
+        
+        rfxtrx.on("th1" || "th2" || "th3" || "th4" || "th5" || "th6" || "th7" || "th8" || "th9", function(evt) {
+                var lastEvt = wt.hash[evt.id];
+                wt.hash[evt.id]=evt;
+                wt.xplSend_th_temp(evt, !lastEvt || lastEvt.temperature != evt.temperature);
+                wt.xplSend_th_humidity(evt, !lastEvt || lastEvt.humidity != evt.humidity);
+                wt.xplSend_th_humidityStatus(evt, !lastEvt || lastEvt.humidityStatus != evt.humidityStatus);
+                wt.xplSend_th_battery(evt, !lastEvt || lastEvt.batteryLevel != evt.batteryLevel);
+                wt.xplSend_th_rssi(evt, !lastEvt || lastEvt.rssi != evt.rssi);
+        });
+        
+	/*rfxtrx.on("th1", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
 			wt.xplSend_th_temp(evt, 1);
@@ -800,7 +877,16 @@ wt.init(function(error, rfxtrx, xpl) {
 	 * Called by the data event handler when data arrives from temp1-9 devices.
 	 * 
 	 */
-	rfxtrx.on("temp1", function(evt) {
+        
+        rfxtrx.on("temp1" || "temp2" || "temp3" || "temp4" || "temp5" || "temp6" || "temp7" || "temp8" || "temp9", function(evt) {
+                var lastEvt = wt.hash[evt.id];
+                wt.hash[evt.id]=evt;
+                wt.xplSend_th_temp(evt, !lastEvt || lastEvt.temperature != evt.temperature);
+                wt.xplSend_th_battery(evt, !lastEvt || lastEvt.batteryLevel != evt.batteryLevel);
+                wt.xplSend_th_rssi(evt, !lastEvt || lastEvt.rssi != evt.rssi);
+        });
+        
+	/*rfxtrx.on("temp1", function(evt) {
 		if (!wt.hash[evt.id]) {
 			wt.hash[evt.id] = evt;
 			wt.xplSend_th_temp(evt, 1);
@@ -1027,6 +1113,6 @@ wt.init(function(error, rfxtrx, xpl) {
 		} else {
 			wt.xplSend_th_rssi(evt, 0);
 		}
-	});
+	});*/
 
 });
