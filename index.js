@@ -22,7 +22,6 @@ wt.init(function(error, rfxtrx, xpl) {
                 }
                 else if(message.body.command == 'off'){
                         light.switchOff(deviceId);
-
                 }
                 else if (message.body.command == 'preset'){
                         light.setLevel(deviceId, parseInt(message.body.level, 10));
@@ -40,7 +39,6 @@ wt.init(function(error, rfxtrx, xpl) {
                 }
                 else if(message.body.command == 'off'){
                         light.switchOff(deviceId);
-
                 }
                 else if (message.body.command == 'preset'){
                         light.setLevel(deviceId, parseInt(message.body.level, 10));
@@ -58,152 +56,6 @@ wt.init(function(error, rfxtrx, xpl) {
                 }
                 else if(message.body.command == 'off'){
                         light.chime(deviceId);
-
-                }
-        });
-        
-        xpl.on("xpl:arc.basic", function(message) {
-		console.log("Receive message ", message);
-                var deviceId = message.body.device;
-
-                var light=new rfxcom.Lighting1(rfxtrx, rfxcom.lighting1.ARC);
-
-                if(message.body.command == 'on'){
-                        light.chime(deviceId);
-                }
-                else if(message.body.command == 'off'){
-                        light.chime(deviceId);
-
-                }
-        });
-        
-        xpl.on("xpl:elro.basic", function(message) {
-		console.log("Receive message ", message);
-                var deviceId = message.body.device;
-
-                var light=new rfxcom.Lighting1(rfxtrx, rfxcom.lighting1.ELRO);
-
-                if(message.body.command == 'on'){
-                        light.chime(deviceId);
-                }
-                else if(message.body.command == 'off'){
-                        light.chime(deviceId);
-
-                }
-        });
-        
-        xpl.on("xpl:waveman.basic", function(message) {
-		console.log("Receive message ", message);
-                var deviceId = message.body.device;
-
-                var light=new rfxcom.Lighting1(rfxtrx, rfxcom.lighting1.WAVEMAN);
-
-                if(message.body.command == 'on'){
-                        light.chime(deviceId);
-                }
-                else if(message.body.command == 'off'){
-                        light.chime(deviceId);
-
-                }
-        });
-        
-        xpl.on("xpl:chacon.basic", function(message) {
-		console.log("Receive message ", message);
-                var deviceId = message.body.device;
-
-                var light=new rfxcom.Lighting1(rfxtrx, rfxcom.lighting1.CHACON);
-
-                if(message.body.command == 'on'){
-                        light.chime(deviceId);
-                }
-                else if(message.body.command == 'off'){
-                        light.chime(deviceId);
-
-                }
-        });
-        
-        xpl.on("xpl:impuls.basic", function(message) {
-		console.log("Receive message ", message);
-                var deviceId = message.body.device;
-
-                var light=new rfxcom.Lighting1(rfxtrx, rfxcom.lighting1.IMULS);
-
-                if(message.body.command == 'on'){
-                        light.chime(deviceId);
-                }
-                else if(message.body.command == 'off'){
-                        light.chime(deviceId);
-
-                }
-        });
-        
-        xpl.on("xpl:risingsun.basic", function(message) {
-		console.log("Receive message ", message);
-                var deviceId = message.body.device;
-
-                var light=new rfxcom.Lighting1(rfxtrx, rfxcom.lighting1.RISING_SUN);
-
-                if(message.body.command == 'on'){
-                        light.chime(deviceId);
-                }
-                else if(message.body.command == 'off'){
-                        light.chime(deviceId);
-                }
-        });
-        
-        xpl.on("xpl:philipssbc.basic", function(message) {
-		console.log("Receive message ", message);
-                var deviceId = message.body.device;
-
-                var light=new rfxcom.Lighting1(rfxtrx, rfxcom.lighting1.PHILIPS_SBC);
-
-                if(message.body.command == 'on'){
-                        light.chime(deviceId);
-                }
-                else if(message.body.command == 'off'){
-                        light.chime(deviceId);
-                }
-        });
-        
-        xpl.on("xpl:lightwaverf.basic", function(message) {
-		console.log("Receive message ", message);
-                var deviceId = message.body.device + '/' + message.body.unitcode;
-
-                var light=new rfxcom.Lighting5(rfxtrx, rfxcom.lighting5.LIGHTWAVERF);
-
-                if(message.body.command == 'on'){
-                        light.switchOn(deviceId);
-                }
-                else if(message.body.command == 'off'){
-                        light.switchOff(deviceId);
-                }
-        });
-        
-        xpl.on("xpl:emw100.basic", function(message) {
-		console.log("Receive message ", message);
-                var deviceId = message.body.device + '/' + message.body.unitcode;
-
-                var light=new rfxcom.Lighting5(rfxtrx, rfxcom.lighting5.EMW100);
-
-                if(message.body.command == 'on'){
-                        light.switchOn(deviceId);
-                }
-                else if(message.body.command == 'off'){
-                        light.switchOff(deviceId);
-                }
-        });
-        
-        xpl.on("xpl:bbsb.basic", function(message) {
-		console.log("Receive message ", message);
-                var deviceId = message.body.device + '/' + message.body.unitcode;
-
-                var light=new rfxcom.Lighting5(rfxtrx, rfxcom.lighting5.BBSB);
-
-                if(message.body.command == 'on'){
-                        light.switchOn(deviceId);
-                }
-                else if(message.body.command == 'off'){
-                        light.switchOff(deviceId);
                 }
         });
         
