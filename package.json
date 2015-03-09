@@ -5,7 +5,8 @@
   "main": "./lib/xpl-rfxtrx.js",
   "dependencies": {
     "xpl-api": "~1.0.12",
-    "rfxcom": "0.7.8"
+    "rfxcom": "0.7.9",
+    "async": "~0.9.0"
   },
   "keywords": [
     "XPL","nodejs","rfxcom","rfxtrx"
