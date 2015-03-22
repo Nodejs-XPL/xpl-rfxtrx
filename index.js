@@ -43,6 +43,11 @@ wt.init(function(error, rfxtrx, xpl) {
                 else if (message.body.command == 'preset'){
                         light.setLevel(deviceId, parseInt(message.body.level, 10));
                 }
+		
+		// WTF the gateway doesn't send back a xpl-stat message ?
+		if (message.headerName == 'xpl-cmnd') {
+			wt.sendXplStat(message.body, 'ac.basic' );
+		}
         });
         
         xpl.on("xpl:x10.basic", function(message) {
