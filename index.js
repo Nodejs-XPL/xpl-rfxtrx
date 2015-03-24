@@ -1,8 +1,16 @@
 var XplRfxTrx = require("./lib/xpl-rfxtrx");
 var rfxcom = require('rfxcom');
 
+var schema_Ac = require('/etc/wiseflat/schemas/ac.basic.json');
+var schema_Homeeasy = require('/etc/wiseflat/schemas/homeeasy.basic.json');
+var schema_x10basic = require('/etc/wiseflat/schemas/x10.basic.json');
+var schema_x10security = require('/etc/wiseflat/schemas/x10.security.json');
+var schema_Sensorbasic = require('/etc/wiseflat/schemas/sensor.basic.json');
+
 var wt = new XplRfxTrx("/dev/ttyUSB0", {
-	rfxtrxDebug: false
+	rfxtrxDebug: false,
+        xplLog: false,
+        forceBodySchemaValidation: false
 });
 
 wt.init(function(error, rfxtrx, xpl) {
@@ -10,6 +18,12 @@ wt.init(function(error, rfxtrx, xpl) {
 		console.error(error);
 		return;
 	}
+
+	xpl.addBodySchema(schema_Ac.id, schema_Ac.definitions.body);
+        xpl.addBodySchema(schema_Homeeasy.id, schema_Homeeasy.definitions.body);
+        xpl.addBodySchema(schema_x10basic.id, schema_x10basic.definitions.body);
+        xpl.addBodySchema(schema_x10security.id, schema_x10security.definitions.body);
+        xpl.addBodySchema(schema_Sensorbasic.id, schema_Sensorbasic.definitions.body);
 
         xpl.on("xpl:homeeasy.basic", function(message) {
 		console.log("Receive message ", message);
