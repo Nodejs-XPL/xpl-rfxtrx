@@ -4,7 +4,7 @@
   "description": "Node JS layer for XPL and the Rfxcom Rfxtrx",
   "main": "./lib/xpl-rfxtrx.js",
   "dependencies": {
-    "xpl-api": "~1.0.12",
+    "xpl-api": "Nodejs-XPL/xpl-api",
     "rfxcom": "0.7.9",
     "async": "~0.9.0"
   },
