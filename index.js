@@ -19,6 +19,14 @@ wt.init(function(error, rfxtrx, xpl) {
 		return;
 	}
 
+	// Load config file into hash
+        wt.readConfig();
+        
+        // Send every minutes an xPL status message 
+        setInterval(function(){
+                wt.sendConfig();
+        }, 60 * 1000);
+	
 	xpl.addBodySchema(schema_Ac.id, schema_Ac.definitions.body);
         xpl.addBodySchema(schema_Homeeasy.id, schema_Homeeasy.definitions.body);
         xpl.addBodySchema(schema_x10basic.id, schema_x10basic.definitions.body);
