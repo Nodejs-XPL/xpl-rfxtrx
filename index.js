@@ -34,7 +34,7 @@ wt.init(function(error, rfxtrx, xpl) {
         xpl.addBodySchema(schema_Sensorbasic.id, schema_Sensorbasic.definitions.body);
 
         xpl.on("xpl:homeeasy.basic", function(message) {
-		console.log("Receive message ", message);
+		//console.log("Receive message ", message);
                 var deviceId = message.body.address + '/' + message.body.unit;
 
                 var light=new rfxcom.Lighting2(rfxtrx, rfxcom.lighting2.HOMEEASY_EU);
@@ -51,7 +51,7 @@ wt.init(function(error, rfxtrx, xpl) {
         });
 
         xpl.on("xpl:ac.basic", function(message) {
-		console.log("Receive message ", message);
+		//console.log("Receive message ", message);
                 var deviceId = message.body.address + '/' + message.body.unit;
 
                 var light=new rfxcom.Lighting2(rfxtrx, rfxcom.lighting2.AC);
@@ -73,7 +73,7 @@ wt.init(function(error, rfxtrx, xpl) {
         });
         
         xpl.on("xpl:x10.basic", function(message) {
-		console.log("Receive message ", message);
+		//console.log("Receive message ", message);
                 var deviceId = message.body.device;
 
                 var light=new rfxcom.Lighting1(rfxtrx, rfxcom.lighting1.X10);
