@@ -68,7 +68,7 @@ wt.init(function(error, rfxtrx, xpl) {
 		
 		// WTF the gateway doesn't send back a xpl-stat message ?
 		if (message.headerName == 'xpl-cmnd') {
-			wt.sendXplStat(message.body, 'ac.basic' );
+			wt._sendXplStat(message.body, 'ac.basic' );
 		}
         });
         
