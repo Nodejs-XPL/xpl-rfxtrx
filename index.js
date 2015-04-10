@@ -33,6 +33,10 @@ wt.init(function(error, rfxtrx, xpl) {
         xpl.addBodySchema(schema_x10security.id, schema_x10security.definitions.body);
         xpl.addBodySchema(schema_Sensorbasic.id, schema_Sensorbasic.definitions.body);
 
+	xpl.on("xpl:rfxtrx.config", function(evt) {
+		if(evt.headerName == 'xpl-cmnd') wt.writeConfig(evt);
+        });
+		
         xpl.on("xpl:homeeasy.basic", function(message) {
 		//console.log("Receive message ", message);
                 var deviceId = message.body.address + '/' + message.body.unit;
