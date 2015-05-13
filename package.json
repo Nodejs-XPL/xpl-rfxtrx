@@ -1,6 +1,6 @@
 {
   "name": "xpl-rfxtrx",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Node JS layer for XPL and the Rfxcom Rfxtrx",
   "main": "./lib/xpl-rfxtrx.js",
   "dependencies": {
